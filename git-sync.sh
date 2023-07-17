@@ -35,7 +35,10 @@ if [[ -n "$SOURCE_SSH_PRIVATE_KEY" ]]; then
   git checkout --orphan orphaned_branch
   git config --global user.email "automatic-action@devnull.com"
   git config --global user.name "Git Sync Action"
-  git commit -m "handoff"
+  git add -A
+  git commit -am "handoff"
+  git branch -D main
+  git branch -m main
 else
   git clone "$SOURCE_REPO" /root/source --origin source && cd /root/source
 fi
