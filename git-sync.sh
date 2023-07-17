@@ -46,12 +46,6 @@ fi
 
 git remote add destination "$DESTINATION_REPO"
 
-# Pull all branches references down locally so subsequent commands can see them
-git fetch source '+refs/heads/*:refs/heads/*' --update-head-ok
-
-# Print out all branches
-git --no-pager branch -a -vv
-
 if [[ -n "$DESTINATION_SSH_PRIVATE_KEY" ]]; then
   # Push using destination ssh key if provided
   git config --local core.sshCommand "/usr/bin/ssh -i ~/.ssh/dst_rsa"
