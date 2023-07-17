@@ -30,7 +30,10 @@ echo "DESTINATION=$DESTINATION_REPO:$DESTINATION_BRANCH"
 
 if [[ -n "$SOURCE_SSH_PRIVATE_KEY" ]]; then
   # Clone using source ssh key if provided
-  git clone -c core.sshCommand="/usr/bin/ssh -i ~/.ssh/src_rsa" "$SOURCE_REPO" /root/source --origin source --depth 1 && cd /root/source
+  git clone -c core.sshCommand="/usr/bin/ssh -i ~/.ssh/src_rsa" "$SOURCE_REPO" /root/source --origin source && cd /root/source
+  # Create an orphaned branch without history
+  git checkout --orphan orphaned_branch
+  git commit -m "handoff"
 else
   git clone "$SOURCE_REPO" /root/source --origin source && cd /root/source
 fi
