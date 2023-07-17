@@ -32,13 +32,14 @@ if [[ -n "$SOURCE_SSH_PRIVATE_KEY" ]]; then
   # Clone using source ssh key if provided
   git clone -c core.sshCommand="/usr/bin/ssh -i ~/.ssh/src_rsa" "$SOURCE_REPO" /root/source --origin source && cd /root/source
   # Create an orphaned branch without history
-  git checkout --orphan orphaned_branch
+  rm -rf ./.git
+  git init
   git config --global user.email "automatic-action@devnull.com"
   git config --global user.name "Git Sync Action"
   git add -A
   git commit -am "handoff"
-  git branch -D main
   git branch -m main
+  echo "Cleared history and created new git folder"
 else
   git clone "$SOURCE_REPO" /root/source --origin source && cd /root/source
 fi
