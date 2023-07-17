@@ -36,6 +36,8 @@ if [[ -n "$SOURCE_SSH_PRIVATE_KEY" ]]; then
   git init
   git config --global user.email "automatic-action@devnull.com"
   git config --global user.name "Git Sync Action"
+  # Removing workflows
+  rm -rf ./.github
   git add -A
   git commit -am "handoff"
   git branch -m main
